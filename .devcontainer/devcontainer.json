@@ -1,0 +1,19 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
+{
+  "name": "Ubuntu",
+  
+  "image": "mcr.microsoft.com/devcontainers/base:noble",
+
+  "features": {
+    "ghcr.io/devcontainers/features/azure-cli:1": {},
+    "ghcr.io/devcontainers-extra/features/terraform-asdf:2": {}
+  },
+
+  // Mount your host .ssh folder into the container
+  "mounts": [
+    "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind"
+  ]
+
+  // Additional options omitted for clarity
+}
