@@ -9,8 +9,8 @@ variable "vm_name" {
   default     = "main-vm"
 }
 
-variable "ssh_password" {
-  description = "The password for the SSH user"
+variable "ssh_key_name" {
   type        = string
-  sensitive   = true
+  description = "name of the file of you keypair"
 }
+

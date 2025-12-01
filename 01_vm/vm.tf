@@ -73,10 +73,21 @@ resource "azurerm_linux_virtual_machine" "terraform_class" {
   }
 
   disable_password_authentication = true
-  admin_ssh_key {
-    username   = "adminuser"
-    public_key = file("/home/vscode/.ssh/id_ed25519.pub")
-  }
+    admin_ssh_key {
+      username   = "adminuser"
+      public_key = file("/home/vscode/.ssh/${var.ssh_key_name}.pub")
+    }
+
+    provisioner "remote-exec" {
+        inline = split("\n", templatefile("${path.module}/inline_commands.sh", {}))
+      connection {
+        type        = "ssh"
+        user        = "adminuser"
+        private_key = file("/home/vscode/.ssh/${var.ssh_key_name}")
+        host        = self.public_ip_address
+        timeout     = "2m"
+      }
+    }
 }
 
 resource "azurerm_network_security_group" "terraform_class_nsg" {
