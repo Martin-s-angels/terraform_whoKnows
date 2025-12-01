@@ -1,7 +1,7 @@
 
 ## to use this repo 
 
-clone repo
+clone repo\
 open in devcontainer.
 
 first you must login to azure via the azure cli with this command: 
