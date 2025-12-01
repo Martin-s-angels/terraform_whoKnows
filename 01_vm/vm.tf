@@ -75,7 +75,7 @@ resource "azurerm_linux_virtual_machine" "terraform_class" {
   disable_password_authentication = true
     admin_ssh_key {
       username   = "adminuser"
-      public_key = file("/home/vscode/.ssh/${var.ssh_key_name}.pub")
+      public_key = file("../ssh/${var.ssh_key_name}.pub")
     }
 
     provisioner "remote-exec" {
@@ -83,9 +83,20 @@ resource "azurerm_linux_virtual_machine" "terraform_class" {
       connection {
         type        = "ssh"
         user        = "adminuser"
-        private_key = file("/home/vscode/.ssh/${var.ssh_key_name}")
+        private_key = file("../ssh/${var.ssh_key_name}")
         host        = self.public_ip_address
         timeout     = "2m"
+      }
+    }
+    provisioner "file" {
+      source      = "../ssh/authorized_keys"
+      destination = "/home/adminuser/.ssh/authorized_keys"
+
+      connection {
+        type        = "ssh"
+        user        = "adminuser"
+        private_key = file("../ssh/${var.ssh_key_name}")
+        host        = self.public_ip_address
       }
     }
 }

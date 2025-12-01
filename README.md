@@ -12,6 +12,15 @@ Verify the login:
  az account show
 ```
 
+then run the following command in the root folder if you wish to make a new keypair in this devcontainer, or you can copy your keys into ssh in the root repo: 
+
+```bash
+mkdir -p ./ssh && ssh-keygen -t ed25519 -f ./ssh/id_ed25519 -N ""
+```
+this will gernate ssh keys for the vm do remember **THESE WILL BE LOST IF THE DEVCONTAINER IS RESTARTET** so if you want perminant acess then please add your actual machine keys dont worry they should not be pushed to git however please do make sure if you fork or commit to this repo they are not. 
+
+if you add a authorized_keys file into the ssh folder it should be added to the vm created in 01_vm this can be used to add more team members to a vm at once. 
+
 for it to run automatically you need to create a terraform.tfvars file in the folder of the resource you wish to use with the following lines: 
 ```bash
 subscription_id = "the subscription_id shown when you said az account show "
