@@ -18,11 +18,15 @@ sudo systemctl enable fail2ban
 sudo systemctl start fail2ban
 
 sudo apt-get install -y ufw
+
+sudo ufw allow 22/tcp
+sudo ufw allow 8080/tcp
+
+
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
-sudo ufw allow 22/tcp      
-sudo ufw allow 8080/tcp    
-sudo ufw enable
+
+sudo ufw --force enable
 
 sudo sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin no/' /etc/ssh/sshd_config
 sudo sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config

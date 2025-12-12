@@ -43,6 +43,11 @@ then use the following commands
 
 then when you wish to create the resource then simply run: 
 ```bash
+  ssh -i ../ssh/my_azure_key [user]@VM_ip
+```
+
+if you generated a new key pair in this devContainer remember to use that public when logging into the vm: 
+```bash
   terraform apply 
 ```
 

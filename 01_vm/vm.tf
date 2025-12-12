@@ -104,24 +104,13 @@ resource "azurerm_linux_virtual_machine" "terraform_class" {
     }
 
     provisioner "remote-exec" {
-        inline = split("\n", templatefile("${path.module}/inline_commands.sh", {}))
+        script = "${path.module}/inline_commands.sh"
       connection {
         type        = "ssh"
         user        = "adminuser"
         private_key = file("../ssh/${var.ssh_key_name}")
         host        = self.public_ip_address
         timeout     = "2m"
-      }
-    }
-    provisioner "file" {
-      source      = "../ssh/authorized_keys"
-      destination = "/home/adminuser/.ssh/authorized_keys"
-
-      connection {
-        type        = "ssh"
-        user        = "adminuser"
-        private_key = file("../ssh/${var.ssh_key_name}")
-        host        = self.public_ip_address
       }
     }
 }
