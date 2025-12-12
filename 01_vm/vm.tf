@@ -12,9 +12,34 @@ provider "azurerm" {
     subscription_id = var.subscription_id
 }
 
+data "external" "available_regions" {
+  program = ["bash", "${path.module}/get_valid_regions.sh"]
+}
+
+locals {
+  regions         = split(",", data.external.available_regions.result.regions)
+  selected_region = element(local.regions, 0)
+}
+
+resource "null_resource" "validate_region" {
+  triggers = {
+    region = local.selected_region
+  }
+
+  provisioner "local-exec" {
+    when    = create
+    command = <<EOF
+      if [ "${local.selected_region}" = "" ]; then
+        echo "ERROR: No available Azure regions found."
+        exit 1
+      fi
+EOF
+  }
+}
+
 resource "azurerm_resource_group" "terraform_class" {
   name     = "terraform_class-resources"
-  location = "Sweden Central"
+  location = local.selected_region
 }
 
 resource "azurerm_virtual_network" "terraform_class" {
