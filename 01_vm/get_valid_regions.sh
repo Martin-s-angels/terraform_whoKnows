@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -u  # Fail on unset variables, but don’t exit on errors in the loop
 
-CACHE_FILE="${HOME}/.azure_valid_regions.json"
+CACHE_FILE="/workspaces/terraform_whoKnows/01_vm/.azure_valid_regions.json"
 TEMP_RG="policy-test-rg"
 
 log() {
