@@ -14,3 +14,8 @@ variable "ssh_key_name" {
   description = "name of the file of you keypair"
 }
 
+variable "location" {
+  description = "The Azure region to deploy resources in. If empty, the script will choose a valid region."
+  type        = string
+  default     = ""
+}
