@@ -57,3 +57,15 @@ to remove the resource again then simply type:
 ```
 
 
+for 04 to work please git clone the webcrawler into the 04 directory then run terrafrom init. make sure you have the currect varriables in the tvars file you need these: 
+```bash
+subscription_id = ""
+vm_name = ""
+ssh_key_name = ""
+location = ""
+```
+then do terrafrom plan then terrafrom apply. 
+
+
+when it is done run the crawler.sh and see the output 
+
